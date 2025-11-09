@@ -1,0 +1,81 @@
+#include <stdio.h>  
+#include <stdlib.h>  
+struct Node  
+{     int billAmount;     
+struct Node* next;  
+};  
+struct Node* createNode(int amount)  
+{  
+struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));     
+newNode->billAmount = amount;     newNode->next = NULL;     
+return newNode;  
+}  
+void insertBill(struct Node** head, int amount)  
+{  
+struct Node* newNode = createNode(amount);     
+if (*head == NULL)  
+{  
+*head = newNode;  
+return;  
+}  
+struct Node* temp = *head;     
+while (temp->next != NULL)  
+{  
+temp = temp->next;  
+}  
+temp->next = newNode;  
+}  
+void displaySales(struct Node* head)  
+{  
+if (head == NULL)  
+{  
+printf("No bills recorded for the day.\n");         
+return;  
+}  
+int total = 0, maxBill = head->billAmount, minBill = head->billAmount;  
+struct Node* temp = head;     
+while (temp != NULL)  
+{  
+total += temp->billAmount;  
+if (temp->billAmount > maxBill)             
+maxBill = temp->billAmount;  
+(temp->billAmount < minBill)             
+minBill = temp->billAmount;  
+temp = temp->next;  
+}  
+       if 
+printf("\nTotal sale of the day: %d\n", total);  
+printf("Maximum bill of the day: %d\n", maxBill);     
+printf("Minimum bill of the day: %d\n", minBill);  
+}  
+int main()  
+{  
+struct Node* head = NULL;     
+int choice, amount;  
+while (1)  
+{  
+printf("\n--- Coffee Shop Billing System ---\n");         
+printf("1. Add a bill\n");         printf("2. Display total, 
+max, min sale\n");     
+    printf("3. Exit\n");         
+printf("Enter your choice: "); 
+&choice);  
+switch (choice)  
+{  
+case 1:  
+        scanf("%d", 
+printf("Enter bill amount: ");             
+scanf("%d", &amount);             
+insertBill(&head, amount);             
+break;   
+      case 2:             
+displaySales(head);  
+case 3:           
+default:  
+  exit(0);         
+           break;         
+printf("Invalid choice! Try again.\n");  
+}  
+}  
+return 0;  
+} 
