@@ -1,0 +1,55 @@
+#include <stdio.h>
+#define MAX 100
+int main() {
+int top1 = -1, top2 = -1 ;
+char stack1[MAX],stack2[MAX] ;
+char string[MAX] ;
+int choice;
+while(1)
+{
+printf("\nEnter the choice
+:\n\t1.Text\n\t2.Undo\n\t3.Redo\n\t4.Exit");
+scanf("%d",&choice);
+switch(choice) {
+case 1 : top1=-
+1,top2=-1;
+printf("\n Enter the string : ");
+scanf("%s",string);
+for(int i = 0 ; string[i]!='\0'; i++)
+{
+stack1[++top1]=string[i];
+printf("%c",stack1[top1]);
+}
+break; case 2 :
+if(top1==-1)
+{
+printf("Nothing to undo");
+break;
+}
+else
+stack2[++top2]=stack1[top1--];
+for(int i=0; i<=top1; i++)
+{
+printf("%c",stack1[i]);
+}
+break; case 3 :
+if(top2<0)
+{
+printf("Nothing to redo");
+break;
+}
+else
+{
+stack1[++top1]=stack2[top2--];
+for(int i=0; i<=top1; i++)
+{
+printf("%c",stack1[i]);
+}
+break;
+}
+case 4 :
+printf("Exiting");
+return 0;
+}
+}
+}
