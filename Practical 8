@@ -1,0 +1,66 @@
+#include <stdio.h>  
+#include <stdlib.h>  
+#define MAX 20  
+int 
+n;  
+int adj[MAX][MAX]; int 
+visited[MAX];  
+// DFS to mark visited nodes void dfs(int 
+v, int skip) {     
+visited[v] = 1;  
+0; i < n; i++) {
+         i f 
+   for (int i = 
+(i != skip && 
+adj[v][i] && !visited[i])             
+}  
+}  
+dfs(i, skip);  
+// Function to check if graph is connected (excluding one node) 
+int isConnected(int skip) {  
+   int start = -1;
+ i++) {     
+break;  
+}  
+    if (i != skip) {  
+start = i;             
+     for (int i = 0; i < n; 
+}     if (start 
+== -1)  
+return 1; // No nodes left  
+for (int i = 0; i < n; 
+i++)        
+ visited[i] = 0;  
+dfs(start, skip);  
+for (int i = 0; i < n; i++) {         
+if (i != skip && !visited[i])             
+return 0; // Not connected  
+}  
+return 1; // Connected  
+}  
+int main() {     
+of nodes: ");
+ printf("Enter number 
+     scanf("%d", &n);  
+printf("Enter adjacency matrix (%d x %d):\n", n, n);     
+for (int i = 0; i < n; i++)         for (int j = 0; j < n; j++)             
+scanf("%d", &adj[i][j]);  
+if (!isConnected(-1)) {         
+printf("The original 
+network is not connected.\n");      
+}  
+   return 0;  
+printf("\nNodes whose failure disconnects the network:\n");     
+int found = 0;
+     for (int i = 0; i < n; i++) {   
+(!isConnected(i)) {  
+printf("Node %d\n", i);             
+found = 1;  
+}  
+}  
+if (!found)    
+      if 
+     printf("No single node failure 
+detected.\n");  
+return 0;  
+} 
