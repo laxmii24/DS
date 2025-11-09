@@ -1,0 +1,131 @@
+#include <stdio.h>  
+#include <stdlib.h>  
+#define MAX 50  
+int adj[MAX][MAX];  // adjacency matrix 
+int visited[MAX]; int n;  
+// Function to detect cycle using DFS 
+int dfs(int v, int parent) {     visited[v] 
+= 1;     
+for (int i = 0; i < n; i++) {         
+if (adj[v][i]) {            
+ if (!visited[i]) {                 
+if (dfs(i, v))                 
+    return 1;  
+} else if (i != parent) {  
+// If visited and not parent, cycle found  
+return 1;  
+}  
+}  
+}  
+return 0;  
+}  
+// Function to check for a cycle in the graph 
+int hasCycle() {     
+for (int i = 0; i < n; i++)         
+visited[i] = 0;  
+for (int i = 0; i < n; i++) 
+{       
+  if (!visited[i]) {             
+if (dfs(i, -1))                 
+return 1;  
+}  
+}  
+return 0;  
+}  
+// ---------------- Input Methods ----------------  
+// i. Read graph from file 
+void inputFromFile() {     
+char filename[50];     
+FILE 
+*fp;     printf("Enter 
+filename: "); 
+    scanf("%s", 
+filename);     fp = 
+fopen(filename, "r");  
+if (!fp) {         
+printf("Error: cannot 
+open file.\n");       
+}  
+  exit(1);  
+fscanf(fp, "%d", &n);     
+for (int i = 0; i < n; i++)         
+for (int j = 0; j < n; j++)             
+fscanf(fp, "%d", &adj[i][j]);  
+fclose(fp);    
+ printf("Graph loaded from file 
+successfully.\n");  
+}  
+// ii. Input graph as adjacency list 
+void inputFromAdjList() {     int 
+edges, u, v;     
+printf("Enter number 
+of nodes: ");
+     scanf("%d", &n);     
+printf("Enter number of edges: ");     
+scanf("%d", &edges);  
+// Initialize matrix   
+(int i = 0; i < n; i++)   
+(int j = 0; j < n; j++)             
+adj[i][j] = 0;  
+  for 
+      for 
+printf("Enter edges (u v):\n");     for (int 
+i = 0; i < edges; i++) {         scanf("%d 
+%d", &u, &v);         
+adj[u][v] = adj[v][u] = 
+1; // undirected  
+}  
+}  
+// iii. Input graph as adjacency matrix 
+void inputFromAdjMatrix() {     
+printf("Enter number of nodes: ");     
+scanf("%d", &n);  
+printf("Enter adjacency matrix (%d x %d):\n", n, n);     
+for (int i = 0; i < n; i++)         for (int j = 0; j < n; j++)             
+scanf("%d", &adj[i][j]);  
+}  
+// ------------------------------------------------  
+int main() {     
+int choice;  
+printf("\nCycle Detection in Graph\n");     
+printf("1. Input from file\n"); 
+Input as adjacency list\n");  
+    printf("2. 
+   printf("3. 
+Input as adjacency matrix\n");     
+printf("Enter your choice: ");     
+scanf("%d", &choice);  
+switch (choice) {   
+inputFromFile();        
+case 2:             
+inputFromAdjList();             
+break;   
+      case 3:             
+inputFromAdjMatrix();             
+break;   
+      default:             
+      case 1:             
+     break;         
+printf("Invalid choice!\n");             
+return 0;  
+}  
+if (hasCycle())       
+the graph.\n");     
+  printf("Cycle detected in 
+else         printf("No cycle 
+detected in the graph.\n");  
+return 0;  
+}  
+printf("\nNodes whose failure disconnects the network:\n");     
+int found = 0;
+     for (int i = 0; i < n; i++) {   
+(!isConnected(i)) {     
+      if 
+        printf("Node %d\n", i);             
+found = 1;  
+}  
+}  
+if (!found)  
+printf("No single node failure detected.\n");  
+return 0;  
+} 
