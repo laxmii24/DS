@@ -1,0 +1,64 @@
+#include <stdio.h>  
+#include <stdlib.h>  
+#include <string.h>  
+#include <ctype.h>  
+#define ALPHABET_SIZE 26  
+// Structure for a Trie Node struct TrieNode {     
+struct TrieNode *children[ALPHABET_SIZE];     
+int isEndOfWord;  
+};  
+// Function to create a new Trie node struct TrieNode *createNode() {     
+struct TrieNode *node = (struct TrieNode *)malloc(sizeof(struct TrieNode));     
+node->isEndOfWord = 0;     for (int i = 0; i < ALPHABET_SIZE; i++)         
+node->children[i] = NULL;     return node;  
+}  
+// Function to insert a word into the Trie void 
+insert(struct TrieNode *root, const char *word) {     
+struct TrieNode *p = root;     for (int i = 0; word[i]; i++) {         
+char ch = tolower(word[i]);       
+  if (ch < 'a' || ch > 'z') 
+continue; // ignore non-letters        
+if (p->children[index] == NULL)       
+>children[index] = createNode();   
+>children[index];  
+}  
+p->isEndOfWord = 1;  
+}  
+ int index = ch - 'a';         
+      p
+      p 
+= p
+// Function to search for a word in the Trie int 
+search(struct TrieNode *root, const char *word) {     
+struct TrieNode *p = root;     for (int i = 0; word[i]; 
+i++) {     
+    char ch = tolower(word[i]);        
+ if (ch < 
+'a' || ch > 'z') continue;         int index = ch - 'a';         
+if (p->children[index] == NULL)       
+      return 0;  
+p = p->children[index];  
+}  
+return p != NULL && p->isEndOfWord;  
+}  
+// Main function int main() {    
+ struct 
+TrieNode *root = createNode();  
+// Insert some sample words     
+insert(root, "and");     
+insert(root, "bat");     
+insert(root, "ball");     
+insert(root, "book");     
+insert(root, "cat");     insert(root, 
+"dog");  
+char word[50];     
+word to search: ");    
+word);  
+printf("Enter a 
+ scanf("%s", 
+if (search(root, word))         
+printf("✅ '%s' 
+found in Trie.\n", word);     else        
+'%s' not found in Trie.\n", word);  
+return 0;  
+} 
